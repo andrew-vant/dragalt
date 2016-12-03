@@ -22,6 +22,7 @@ public class Attacher : MonoBehaviour
 		 * altimeter object. (Found this using DebugStuff for the
 		 * curious)
 		 */
+          
 		GameObject altimeter = GameObject.Find("Altimeter");
 		GameObject slideframeparent = altimeter.transform.parent.gameObject;
 		GameObject cluster = slideframeparent.transform.parent.gameObject;
@@ -29,20 +30,20 @@ public class Attacher : MonoBehaviour
 		Destroy(gameObject);
 	}
 }
-public class Dragger : MonoBehaviour, IBeginDragHandler, IDragHandler
+public class Dragger : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-	/* This makes the altimeter draggable. Movement is restricted to the x
+    /* This makes the altimeter draggable. Movement is restricted to the x
 	 * axis, so it slides along the edge of the screen.
 	 */
 
-	/* I can't figure out how to make ConfigNode.Load do the right thing
+    /* I can't figure out how to make ConfigNode.Load do the right thing
 	 * with C# properties, so ALTIMETER_XCOORD gets mapped to a private
 	 * variable that serves just as a place to keep save-load data.
 	 */
-	[Persistent]
-	private float ALTIMETER_XCOORD;
+    [Persistent]
+    private float ALTIMETER_XCOORD;
 
-	private Vector2 dragstart;
+    private Vector2 dragstart;
 	private Vector3 altstart;
 
 	const string cfgfile = "DraggableAltimeter.cfg";
@@ -53,9 +54,10 @@ public class Dragger : MonoBehaviour, IBeginDragHandler, IDragHandler
 		ConfigNode config = ConfigNode.Load(path);
 		ConfigNode.LoadObjectFromConfig(this, config);
 		xpos = ALTIMETER_XCOORD;
-	}
+    }
 
-	public float xpos
+
+    public float xpos
 	{
 		/* Assigning to xpos moves the altimeter. Don't do it any other
 		 * way; stuff necessary for consistency happens here.
@@ -78,7 +80,7 @@ public class Dragger : MonoBehaviour, IBeginDragHandler, IDragHandler
 		}
 	}
 
-	public void OnBeginDrag(PointerEventData evtdata)
+    public void OnBeginDrag(PointerEventData evtdata)
 	{
 		/* Record the pointer and altimeter positions when dragging
 		 * starts.  We'll need them in OnDrag. */
@@ -97,15 +99,13 @@ public class Dragger : MonoBehaviour, IBeginDragHandler, IDragHandler
 		xpos = altstart.x + dragdist.x;
 	}
 
-	public void Update()
+    public void Update()
 	{
-		xpos = xpos;
-	}
+        xpos = ALTIMETER_XCOORD;
+    }
 
-	public void OnDestroy()
+    public void OnEndDrag(PointerEventData evtdata)
 	{
-		// I'm not sure when you're "supposed" to save plugin data.
-		// This was the best I could come up with.
 		ALTIMETER_XCOORD = xpos;
 		ConfigNode config = ConfigNode.CreateConfigFromObject(this);
 		string path = IOUtils.GetFilePathFor(this.GetType(), cfgfile);
