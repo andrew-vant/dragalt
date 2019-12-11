@@ -15,6 +15,7 @@ build/%.dll : src/%.cs
 		-lib:$(LIB) \
 		-reference:Assembly-CSharp.dll \
 		-reference:UnityEngine.dll \
+		-reference:UnityEngine.CoreModule.dll \
 		-reference:UnityEngine.UI.dll
 
 build/%.md : %.md
