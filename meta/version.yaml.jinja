@@ -1,0 +1,18 @@
+NAME: {{ name }}
+URL: {{ urls.ckan_ver }}
+DOWNLOAD: {{ urls.releases }}
+CHANGE_LOG: {{ urls.changelog }}
+VERSION:
+  MAJOR: {{ version.major }}
+  MINOR: {{ version.minor }}
+  PATCH: {{ version.patch }}
+  BUILD: {{ version.build|default([0], true)|first }}
+{%- for key in ['version', 'version_min', 'version_max'] %}
+{%- if ksp.get(key, null) %}
+{%- set major, minor, patch = ksp[key].split('.') %}
+KSP_{{ key|upper }}:
+  MAJOR: {{ major }}
+  MINOR: {{ minor }}
+  PATCH: {{ patch }}
+{%- endif %}
+{%- endfor %}

@@ -5,7 +5,12 @@
 
 - Nothing at the moment.
 
+### [1.1.0] - 2022-07-04
+
+- Supplies versioning information for CKAN. No functional changes.
+
 ### [1.0.1] - 2016-12-03
+
 - Altimeter position no longer resets on scene changes or IVA. Fix by
   @linuxgurugamer.
 

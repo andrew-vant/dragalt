@@ -1,0 +1,9 @@
+name: Draggable Altimeter
+urls:
+  ckan_ver:  https://github.com/andrew-vant/dragalt/releases/latest/download/DraggableAltimeter.version
+  releases:  https://github.com/andrew-vant/dragalt/releases
+  changelog: https://raw.githubusercontent.com/andrew-vant/dragalt/master/CHANGES.md
+ksp:
+  version:     1.10.1
+  version_min: 1.10.1
+  version_max: 1.12.99
